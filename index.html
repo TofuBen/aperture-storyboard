@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APERTURE — 分镜工作台</title>
+<meta name="description" content="APERTURE 分镜工作台：96 个黑白分镜预设、可编辑画布、人物素材库、时间轴与视频导出。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23181715'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23f7f3eb' stroke-width='2.5'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%23f7f3eb'/%3E%3Cpath d='M32 13v38M13 32h38' stroke='%23f7f3eb' stroke-width='1.8'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css?v=20261022b">
+</head>
+<body>
+<svg class="svg-sprite" width="0" height="0" aria-hidden="true">
+  <defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zm6 0h4v14h-4z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 18v2h16v-2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7 4 12l5 5M4 12h9a6 6 0 0 1 6 6"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 7 5 5-5 5m5-5h-9a6 6 0 0 0-6 6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m-9 0 1 13h10l1-13M10 11v5m4-5v5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 8.5-6.2 1.3L10 20z"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="m4 20 1-5L16.5 3.5a2.12 2.12 0 0 1 3 3L8 18zM14 5l5 5"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m4 20 1-5L16 4l4 4L9 19zM14 6l4 4"/></symbol>
+    <symbol id="i-line" viewBox="0 0 24 24"><path d="M4 20 20 4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 20 20 4m-7 0h7v7"/></symbol>
+    <symbol id="i-rect" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/></symbol>
+    <symbol id="i-ellipse" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="7"/></symbol>
+    <symbol id="i-text" viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16m-4 0h8"/></symbol>
+    <symbol id="i-eraser" viewBox="0 0 24 24"><path d="m4 15 9-9 6 6-7 7H7zM10 20h10"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="9" r="1.6"/><path d="m4 17 5-5 4 4 3-3 4 4"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16M9 4v16M15 4v16"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-start" viewBox="0 0 24 24"><path d="M6 5v14M19 5l-9 7 9 7z"/></symbol>
+    <symbol id="i-end" viewBox="0 0 24 24"><path d="M18 5v14M5 5l9 7-9 7z"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 4v16M17 4v16M3 9h4M17 9h4M3 15h4M17 15h4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 19h16"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0 5 5m-5-5L7 9M4 20h16"/></symbol>
+    <symbol id="i-layers-up" viewBox="0 0 24 24"><path d="M12 4 3 9l9 5 9-5zM3 15l9 5 9-5"/></symbol>
+    <symbol id="i-layers-down" viewBox="0 0 24 24"><path d="m12 20 9-5-9-5-9 5zM21 9l-9-5-9 5"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.4"/><rect x="8" y="12" width="8" height="7" rx="1.8"/><path d="M8 14 4 18M16 14l4 4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.2A8.2 8.2 0 0 1 8.8 4 8.2 8.2 0 1 0 20 15.2z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 6.5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  </defs>
+</svg>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="16.5"/>
+          <path d="M22 5.5v33M5.5 22h33M10.3 10.3l23.4 23.4M33.7 10.3 10.3 33.7"/>
+          <circle cx="22" cy="22" r="6.2" class="fill-paper"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <span class="brand-name">APERTURE</span>
+        <span class="brand-tag">分镜工作台</span>
+      </div>
+    </div>
+
+    <div class="project-block">
+      <span class="project-label">项目</span>
+      <div class="project-line">
+        <input id="projectTitle" class="project-title" value="夜行 · 序章" spellcheck="false" maxlength="32" aria-label="项目名称">
+        <button class="icon-btn small" id="projectMenuBtn" title="项目菜单" aria-label="项目菜单" aria-haspopup="menu" aria-expanded="false">
+          <svg class="icon"><use href="#i-more"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="topbar-specs" aria-hidden="true">
+      <span>16:9</span><span>24 FPS</span><span>黑白</span>
+    </div>
+
+    <div class="topbar-actions">
+      <span class="save-state" id="saveState"><i></i><span id="saveLabel">已保存</span></span>
+      <button class="icon-btn" id="themeToggle" title="切换到深色主题" aria-label="切换到深色主题">
+        <svg class="icon"><use href="#i-moon"/></svg>
+      </button>
+      <button class="ghost-btn mobile-library-btn" id="mobileLibraryBtn" aria-label="打开素材库">
+        <svg class="icon"><use href="#i-person"/></svg>
+        <span>素材</span>
+      </button>
+      <button class="ghost-btn" id="previewBtn">
+        <svg class="icon"><use href="#i-play"/></svg>
+        <span>预览</span>
+      </button>
+      <button class="primary-btn" id="exportBtn">
+        <svg class="icon"><use href="#i-download"/></svg>
+        <span>导出视频</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="studio">
+    <aside class="library panel" id="libraryPanel">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h1 id="libraryTitle">分镜库</h1>
+          <p>分镜预设与可编辑素材</p>
+        </div>
+        <div class="panel-heading-actions">
+          <button class="library-upload-btn" id="imageToolBtn" title="导入本地图片">
+            <svg class="icon"><use href="#i-image"/></svg><span>上传</span>
+          </button>
+          <button class="icon-btn small library-close-btn" id="libraryCloseBtn" aria-label="关闭素材库">
+            <svg class="icon"><use href="#i-close"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="library-mode-tabs" id="libraryModeTabs" role="tablist" aria-label="素材类型"></div>
+      <div class="search-field">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <input id="presetSearch" type="search" placeholder="搜索 景别 / 运镜 / 情绪" spellcheck="false" aria-label="搜索分镜预设">
+        <kbd>/</kbd>
+      </div>
+      <div class="category-tabs" id="categoryTabs" role="tablist" aria-label="分类"></div>
+      <div class="library-meta">
+        <span id="libraryActionHint">点按加入时间轴</span>
+      </div>
+      <div class="preset-grid" id="presetGrid"></div>
+    </aside>
+
+    <section class="stage panel" id="stage">
+      <div class="stage-head">
+        <div class="stage-title">
+          <span class="shot-tag" id="stageShotTag">SHOT 01</span>
+          <div class="stage-title-copy">
+            <h2 id="stageShotTitle">夜城定场</h2>
+            <span class="stage-en" id="stageShotEn">NIGHT CITY · ELS / 固定</span>
+          </div>
+        </div>
+        <div class="stage-head-actions">
+          <button class="icon-btn" id="undoBtn" title="撤销 (⌘Z)" aria-label="撤销" disabled>
+            <svg class="icon"><use href="#i-undo"/></svg>
+          </button>
+          <button class="icon-btn" id="redoBtn" title="重做 (⇧⌘Z)" aria-label="重做" disabled>
+            <svg class="icon"><use href="#i-redo"/></svg>
+          </button>
+          <span class="toolbar-divider"></span>
+          <button class="stage-action" id="duplicateShotBtn" title="复制镜头">
+            <svg class="icon"><use href="#i-copy"/></svg><span>复制镜头</span>
+          </button>
+          <button class="stage-action danger" id="deleteShotBtn" title="删除镜头">
+            <svg class="icon"><use href="#i-trash"/></svg><span>删除镜头</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="stage-body">
+        <div class="toolbar">
+          <nav class="toolrail" id="toolRail" aria-label="画布工具">
+            <button class="tool-btn active" data-tool="select" title="选择和移动">
+              <svg class="icon"><use href="#i-cursor"/></svg><span>选择</span>
+            </button>
+            <button class="tool-btn" data-tool="pencil" title="自由绘制">
+              <svg class="icon"><use href="#i-pencil"/></svg><span>画笔</span>
+            </button>
+            <button class="tool-btn" data-tool="pen" title="钢笔：点按添加节点">
+              <svg class="icon"><use href="#i-pen"/></svg><span>钢笔</span>
+            </button>
+            <button class="tool-btn" data-tool="line" title="直线">
+              <svg class="icon"><use href="#i-line"/></svg><span>直线</span>
+            </button>
+            <button class="tool-btn" data-tool="arrow" title="运镜箭头">
+              <svg class="icon"><use href="#i-arrow"/></svg><span>箭头</span>
+            </button>
+            <button class="tool-btn" data-tool="rect" title="矩形">
+              <svg class="icon"><use href="#i-rect"/></svg><span>矩形</span>
+            </button>
+            <button class="tool-btn" data-tool="ellipse" title="椭圆">
+              <svg class="icon"><use href="#i-ellipse"/></svg><span>椭圆</span>
+            </button>
+            <button class="tool-btn" data-tool="text" title="文字标注">
+              <svg class="icon"><use href="#i-text"/></svg><span>文字</span>
+            </button>
+            <button class="tool-btn" data-tool="eraser" title="橡皮擦">
+              <svg class="icon"><use href="#i-eraser"/></svg><span>橡皮</span>
+            </button>
+          </nav>
+          <div class="toolbar-utils">
+            <button class="tool-btn utility" id="assetToolBtn" title="打开素材库">
+              <svg class="icon"><use href="#i-person"/></svg><span>素材</span>
+            </button>
+            <button class="tool-btn utility" id="guidesBtn" title="显示或隐藏参考线">
+              <svg class="icon"><use href="#i-grid"/></svg><span>参考线</span>
+            </button>
+            <button class="tool-btn utility" id="clearDrawingBtn" title="清空当前画布">
+              <svg class="icon"><use href="#i-trash"/></svg><span>清空</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="board-column">
+          <div class="board-viewport" id="boardViewport">
+            <div class="board-frame" id="boardFrame">
+              <svg id="boardSvg" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" aria-label="分镜画布">
+                <g id="boardElements"></g>
+                <g id="boardSelection"></g>
+                <g id="boardSnapGuides" pointer-events="none"></g>
+              </svg>
+              <div class="camera-guides" id="boardGuides" aria-hidden="true">
+                <span class="guide-v v1"></span><span class="guide-v v2"></span>
+                <span class="guide-h h1"></span><span class="guide-h h2"></span>
+                <span class="guide-safe"></span>
+                <span class="guide-cross-x"></span><span class="guide-cross-y"></span>
+              </div>
+              <div class="board-empty" id="boardEmpty">
+                <span class="empty-mark">＋</span>
+                <h3>这一镜还是空的</h3>
+                <p>从左侧选一个分镜预设，<br>或者插入人物素材开始。</p>
+                <div class="empty-actions">
+                  <button class="primary-btn" id="emptyAddPresetBtn">去选素材</button>
+                  <button class="ghost-btn" id="emptyDemoBtn">打开示例</button>
+                </div>
+              </div>
+              <span class="board-side-label" id="boardSideLabel">16:9</span>
+
+              <div class="selection-toolbar" id="selectionToolbar" hidden>
+                <span class="selection-toolbar-label"><i></i><span id="selectionToolbarLabel">矩形</span></span>
+                <span class="selection-divider"></span>
+                <button class="selection-action" id="selectionLayerDownBtn" title="下移一层"><svg class="icon"><use href="#i-layers-down"/></svg><span>下移</span></button>
+                <button class="selection-action" id="selectionLayerUpBtn" title="上移一层"><svg class="icon"><use href="#i-layers-up"/></svg><span>上移</span></button>
+                <button class="selection-action" id="selectionCopyBtn" title="复制元素 (⌘D)"><svg class="icon"><use href="#i-copy"/></svg><span>复制</span></button>
+                <button class="selection-action danger" id="selectionDeleteBtn" title="删除元素 (Del)"><svg class="icon"><use href="#i-trash"/></svg><span>删除</span></button>
+                <span class="selection-divider" id="selectionAlignDivider" hidden></span>
+                <span class="selection-align-group" id="selectionAlignGroup" hidden>
+                  <button class="selection-align" type="button" data-align="left" title="左对齐">左</button>
+                  <button class="selection-align" type="button" data-align="hcenter" title="水平居中对齐">中</button>
+                  <button class="selection-align" type="button" data-align="right" title="右对齐">右</button>
+                  <button class="selection-align" type="button" data-align="top" title="顶对齐">上</button>
+                  <button class="selection-align" type="button" data-align="vcenter" title="垂直居中对齐">中</button>
+                  <button class="selection-align" type="button" data-align="bottom" title="底对齐">下</button>
+                  <button class="selection-align" type="button" data-align="distribute-h" title="水平等距分布">横匀</button>
+                  <button class="selection-align" type="button" data-align="distribute-v" title="垂直等距分布">纵匀</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="board-footer">
+            <div class="board-caption">
+              <span id="boardCaptionText">拖动线条移动位置，双击文字可以修改</span>
+            </div>
+            <div class="board-footer-right">
+              <span class="board-count" id="elementCount">0 个元素</span>
+              <div class="canvas-zoom">
+                <button id="canvasZoomOut" title="缩小画布" aria-label="缩小画布"><svg class="icon"><use href="#i-minus"/></svg></button>
+                <button id="canvasZoomLabel" title="重置为 100%">100%</button>
+                <button id="canvasZoomIn" title="放大画布" aria-label="放大画布"><svg class="icon"><use href="#i-plus"/></svg></button>
+              </div>
+              <button class="footer-chip" id="boardFitBtn"><svg class="icon"><use href="#i-fit"/></svg>适配</button>
+              <button class="footer-chip" id="boardFullscreenBtn"><svg class="icon"><use href="#i-expand"/></svg>专注</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="inspector panel" id="inspectorPanel">
+      <div class="panel-heading compact">
+        <div class="panel-title">
+          <h2>镜头设置</h2>
+          <p>时长、内容与画笔</p>
+        </div>
+        <span class="inspector-index" id="inspectorIndex">01</span>
+      </div>
+      <div class="inspector-scroll">
+        <section class="field-section">
+          <div class="section-title"><span>时长</span><span class="section-note" id="inspectorFrames">96 帧</span></div>
+          <div class="duration-control">
+            <button class="step-btn" id="inspectorMinus" aria-label="减少时长"><svg class="icon"><use href="#i-minus"/></svg></button>
+            <label class="duration-number">
+              <input id="inspectorDuration" type="number" min="0.5" max="60" step="0.5" inputmode="decimal" aria-label="镜头时长（秒）">
+              <span>秒</span>
+            </label>
+            <button class="step-btn" id="inspectorPlus" aria-label="增加时长"><svg class="icon"><use href="#i-plus"/></svg></button>
+          </div>
+          <div class="quick-chips" id="inspectorChips">
+            <button data-duration="0.5">0.5s</button>
+            <button data-duration="1">1s</button>
+            <button data-duration="2">2s</button>
+            <button data-duration="3">3s</button>
+            <button data-duration="5">5s</button>
+            <button data-duration="8">8s</button>
+          </div>
+          <div class="section-subline"><span id="inspectorShare">占全片 19%</span></div>
+        </section>
+
+        <section class="field-section">
+          <div class="section-title"><span>镜头信息</span></div>
+          <label class="field-row"><span>镜头名</span><input class="text-input" id="shotNameInput" type="text" maxlength="24" spellcheck="false" aria-label="镜头名称"></label>
+          <label class="field-row"><span>景别</span>
+            <span class="select-wrap"><select id="shotSizeSelect"></select><svg class="icon"><use href="#i-chevron-down"/></svg></span>
+          </label>
+          <label class="field-row"><span>机位</span>
+            <span class="select-wrap"><select id="angleSelect"></select><svg class="icon"><use href="#i-chevron-down"/></svg></span>
+          </label>
+          <label class="field-row"><span>运镜</span>
+            <span class="select-wrap"><select id="movementSelect"></select><svg class="icon"><use href="#i-chevron-down"/></svg></span>
+          </label>
+          <label class="field-block"><span>导演备注</span><textarea id="shotNote" rows="3" maxlength="120" placeholder="给这一镜写一句导演提示"></textarea></label>
+        </section>
+
+        <section class="field-section">
+          <div class="section-title"><span>画笔</span></div>
+          <div class="field-row"><span>线条</span>
+            <div class="segmented" id="strokeWidthSeg">
+              <button data-width="2">细</button>
+              <button data-width="4" class="active">中</button>
+              <button data-width="7">粗</button>
+            </div>
+          </div>
+          <div class="field-row"><span>填充</span>
+            <div class="segmented" id="fillSeg">
+              <button data-fill="none" class="active">无</button>
+              <button data-fill="#6f6c66">灰色</button>
+              <button data-fill="hatch">网线</button>
+            </div>
+          </div>
+          <label class="check-line"><input type="checkbox" id="safeAreaToggle" checked> 显示安全框</label>
+        </section>
+
+        <section class="field-section layer-section">
+          <div class="section-title"><span>图层</span><span class="section-note" id="layerCount">0</span></div>
+          <div class="layer-list" id="layerList"></div>
+        </section>
+
+        <section class="selection-card" id="elementSelection">
+          <div class="element-info">
+            <span>当前选中</span>
+            <span id="selectedElementLabel">未选择元素</span>
+          </div>
+          <div class="element-actions">
+            <button class="icon-btn small" id="layerUpBtn" title="上移一层"><svg class="icon"><use href="#i-layers-up"/></svg></button>
+            <button class="icon-btn small" id="layerDownBtn" title="下移一层"><svg class="icon"><use href="#i-layers-down"/></svg></button>
+            <button class="icon-btn small" id="duplicateElementBtn" title="复制元素"><svg class="icon"><use href="#i-copy"/></svg></button>
+            <button class="icon-btn small danger" id="deleteElementBtn" title="删除元素"><svg class="icon"><use href="#i-trash"/></svg></button>
+          </div>
+          <div class="transform-fields">
+            <label>缩放 <span><input id="elementScaleInput" type="number" step="5" min="5" max="2000" inputmode="decimal" aria-label="元素缩放百分比"><i>%</i></span></label>
+            <label>旋转 <span><input id="elementRotationInput" type="number" step="5" min="-360" max="360" inputmode="decimal" aria-label="元素旋转角度"><i>°</i></span></label>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="timeline panel" id="timeline">
+    <div class="timeline-head">
+      <div class="timeline-title-block">
+        <h2>时间轴</h2>
+        <span id="sequenceNumber" class="timeline-sub">镜头顺序</span>
+      </div>
+      <div class="transport">
+        <button class="transport-btn" id="goStartBtn" title="回到开头" aria-label="回到开头"><svg class="icon"><use href="#i-start"/></svg></button>
+        <button class="play-pill" id="timelinePlayBtn"><svg class="icon" id="timelinePlayIcon"><use href="#i-play"/></svg><span>预览全片</span></button>
+        <button class="transport-btn" id="goEndBtn" title="跳到结尾" aria-label="跳到结尾"><svg class="icon"><use href="#i-end"/></svg></button>
+        <div class="timecode" aria-label="时间码">
+          <span id="timeCurrent">00:00:00:00</span><span class="time-divider">/</span><span class="time-total" id="timeTotal">00:00:21:00</span>
+        </div>
+      </div>
+      <div class="timeline-tools">
+        <div class="seq-total"><span>总时长</span><strong id="timelineTotal">21.0s</strong></div>
+        <div class="zoom-group">
+          <button id="zoomOutBtn" aria-label="缩小时间轴"><svg class="icon"><use href="#i-minus"/></svg></button>
+          <span id="zoomLabel">100</span>
+          <button id="zoomInBtn" aria-label="放大时间轴"><svg class="icon"><use href="#i-plus"/></svg></button>
+        </div>
+        <button class="add-shot-btn" id="addBlankBtn"><svg class="icon"><use href="#i-plus"/></svg><span>新镜头</span></button>
+      </div>
+    </div>
+
+    <div class="timeline-scroll" id="timelineScroll">
+      <div class="timeline-canvas" id="timelineCanvas">
+        <div class="ruler" id="ruler"></div>
+        <div class="track-area" id="trackArea">
+          <div class="shot-track" id="shotTrack"></div>
+          <div class="playhead" id="playhead"><span class="playhead-cap"></span><span class="playhead-line"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="duration-dock">
+      <div class="dock-left">
+        <span class="dock-label">当前镜头</span>
+        <span class="dock-shot" id="dockShot">SHOT 01 · 夜城定场</span>
+      </div>
+      <div class="duration-choices" id="durationChoices">
+        <button data-duration="0.5">0.5s</button>
+        <button data-duration="1">1s</button>
+        <button data-duration="2">2s</button>
+        <button data-duration="3">3s</button>
+        <button data-duration="5">5s</button>
+        <button data-duration="8">8s</button>
+        <label class="duration-custom">自定义
+          <span><input id="durationCustom" type="number" min="0.5" max="60" step="0.5" inputmode="decimal" aria-label="自定义镜头时长（秒）"><i>秒</i></span>
+        </label>
+      </div>
+      <div class="dock-right">
+        <div class="order-group">
+          <button class="order-btn" id="moveShotLeft" title="镜头前移" aria-label="镜头前移"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
+          <button class="order-btn" id="moveShotRight" title="镜头后移" aria-label="镜头后移"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
+        </div>
+        <span class="dock-frames" id="dockFrames">96 帧</span>
+        <button class="dock-preview" id="previewShotBtn"><span>预览此镜</span><svg class="icon"><use href="#i-play"/></svg></button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="library-scrim" id="libraryScrim" hidden></div>
+
+<div class="project-menu" id="projectMenu" role="menu" hidden>
+  <button data-action="projects" role="menuitem">我的项目…</button>
+  <button data-action="new" role="menuitem">新建项目</button>
+  <button data-action="demo" role="menuitem">载入示例项目</button>
+  <button data-action="save-json" role="menuitem">导出工程 JSON</button>
+  <button data-action="import-json" role="menuitem">导入工程 JSON</button>
+  <span class="menu-sep"></span>
+  <button data-action="sheet" role="menuitem">导出镜头表 PNG</button>
+</div>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+
+<div class="context-menu" id="contextMenu" role="menu" hidden></div>
+
+<div class="preview-overlay" id="previewOverlay" hidden>
+  <div class="preview-top">
+    <div class="preview-brand"><span class="preview-dot"></span><span>APERTURE PREVIEW</span></div>
+    <div class="preview-top-right">
+      <span class="preview-timecode" id="previewTimecode">00:00:00:00</span>
+      <button class="icon-btn close-light" id="previewCloseBtn" aria-label="关闭预览"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+  </div>
+  <div class="preview-stage-wrap">
+    <div class="preview-canvas-shell">
+      <canvas id="previewCanvas" width="1280" height="720"></canvas>
+      <button class="preview-big-play" id="previewBigPlay" hidden><svg class="icon"><use href="#i-play"/></svg></button>
+      <div class="preview-caption" id="previewCaption">
+        <span class="preview-shot-label" id="previewShotLabel">SHOT 01 / 08</span>
+        <span class="preview-shot-title" id="previewShotTitle">夜城定场</span>
+        <span class="preview-shot-meta" id="previewShotMeta">ELS · 固定 · 4.0s</span>
+      </div>
+    </div>
+  </div>
+  <div class="preview-bottom">
+    <button class="preview-control-btn" id="previewPlayBtn" aria-label="播放/暂停"><svg class="icon"><use href="#i-pause"/></svg></button>
+    <div class="preview-progress" id="previewProgress">
+      <span class="preview-progress-fill" id="previewProgressFill"></span>
+      <span class="preview-progress-knob" id="previewProgressKnob"></span>
+    </div>
+    <span class="preview-duration" id="previewDuration">00:20 / 00:21</span>
+    <button class="preview-control-btn" id="previewRestartBtn" aria-label="重播"><svg class="icon"><use href="#i-undo"/></svg></button>
+  </div>
+  <p class="preview-note">点击画面暂停 · ESC 退出</p>
+</div>
+
+<div class="modal-backdrop" id="exportModal" hidden>
+  <div class="modal export-modal" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+    <div class="modal-head">
+      <div>
+        <h2 id="exportTitle">导出分镜视频</h2>
+        <p class="modal-sub">按时间轴逐镜渲染，导出为 MP4 / WebM</p>
+      </div>
+      <button class="icon-btn close-light" id="exportCloseBtn" aria-label="关闭导出"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+
+    <div class="export-body">
+      <div class="export-config">
+        <div class="export-summary">
+          <div class="summary-row"><span>镜头数量</span><strong id="exportShotCount">8 个镜头</strong></div>
+          <div class="summary-row"><span>总时长</span><strong id="exportDuration">21.0 秒</strong></div>
+          <div class="summary-row"><span>画幅</span><strong>16:9 · 黑白</strong></div>
+          <div class="summary-row"><span>格式</span><strong id="exportFormatLabel">自动检测</strong></div>
+        </div>
+
+        <div class="export-field">
+          <span class="export-label">分辨率</span>
+          <div class="segmented lg" id="resolutionSeg">
+            <button data-res="1080" class="active">1080P</button>
+            <button data-res="720">720P</button>
+            <button data-res="540">540P</button>
+          </div>
+        </div>
+
+        <div class="export-field">
+          <span class="export-label">帧率</span>
+          <div class="segmented lg" id="fpsSeg">
+            <button data-fps="24" class="active">24 FPS</button>
+            <button data-fps="30">30 FPS</button>
+          </div>
+        </div>
+
+        <div class="export-field">
+          <span class="export-label">选项</span>
+          <label class="switch-line"><span>烧录镜头信息条</span><input type="checkbox" id="burnInToggle" checked><i></i></label>
+          <label class="switch-line"><span>轻微的镜头推演</span><input type="checkbox" id="pushInToggle" checked><i></i></label>
+        </div>
+
+        <p class="export-note">视频在浏览器本地实时渲染，素材不会上传。渲染时请保持页面可见，时长约等于成片长度。</p>
+
+        <button class="render-btn" id="startRenderBtn">
+          <span id="startRenderLabel">开始渲染</span>
+          <svg class="icon"><use href="#i-play"/></svg>
+        </button>
+        <button class="ghost-btn export-sheet-btn" id="exportSheetBtn">另存镜头表 PNG <svg class="icon"><use href="#i-film"/></svg></button>
+      </div>
+
+      <div class="export-preview">
+        <div class="export-preview-head">
+          <span>预览</span>
+          <span class="export-preview-status" id="exportStatus">待渲染</span>
+        </div>
+        <div class="export-canvas-wrap" id="exportCanvasWrap">
+          <canvas id="exportCanvas" width="1280" height="720"></canvas>
+          <div class="export-ready-mark" id="exportReadyMark">
+            <span>READY</span>
+            <p>渲染完成后<br>可在此预览并下载</p>
+          </div>
+        </div>
+        <div class="export-progress-wrap" id="exportProgressWrap" hidden>
+          <div class="export-progress-top"><span id="exportStageText">准备素材…</span><strong id="exportPercent">0%</strong></div>
+          <div class="export-progress"><span id="exportProgressFill"></span></div>
+          <div class="export-progress-bottom"><span id="exportFrameText">0 / 0 帧</span><span id="exportElapsedText">00:00</span></div>
+        </div>
+        <div class="export-result" id="exportResult" hidden>
+          <video id="exportVideo" controls playsinline></video>
+          <div class="export-result-actions">
+            <a class="render-btn download-btn" id="downloadVideoBtn" download><span>下载视频</span><svg class="icon"><use href="#i-download"/></svg></a>
+            <button class="ghost-btn" id="renderAgainBtn">重新渲染</button>
+          </div>
+        </div>
+        <div class="export-reel-wrap">
+          <div class="export-reel-head"><span>镜头顺序</span><span id="exportReelTotal">—</span></div>
+          <div class="export-reel" id="exportReel"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="projectsModal" hidden>
+  <div class="modal projects-modal" role="dialog" aria-modal="true" aria-labelledby="projectsTitle">
+    <div class="modal-head">
+      <div>
+        <h2 id="projectsTitle">我的项目</h2>
+        <p class="modal-sub" id="projectsSub">保存在这个浏览器里的分镜工程</p>
+      </div>
+      <button class="icon-btn close-light" id="projectsCloseBtn" aria-label="关闭项目列表"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="projects-body">
+      <div class="project-list" id="projectListEl"></div>
+      <div class="project-empty" id="projectsEmpty">
+        <div class="project-empty-icon"><svg class="icon"><use href="#i-rect"/></svg></div>
+        <strong>还没有保存的工程</strong>
+        <span>新建或载入示例后，工程会出现在这里。</span>
+      </div>
+    </div>
+    <div class="projects-foot">
+      <button class="ghost-btn" id="projectsCloseBtn2">关闭</button>
+      <button class="primary-btn" id="projectsNewBtn"><span>新建空白工程</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop compact-modal" id="confirmModal" hidden>
+  <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <h2 id="confirmTitle">新建项目？</h2>
+    <p id="confirmText">当前时间轴和所有分镜将被清空，此操作不可撤销。</p>
+    <div class="confirm-actions">
+      <button class="ghost-btn" id="confirmCancel">取消</button>
+      <button class="primary-btn" id="confirmOk">确认</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<input type="file" id="imageFileInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+<script src="js/presets.js?v=20261022b"></script>
+<script src="js/drawing.js?v=20261022b"></script>
+<script src="js/assets.js?v=20261022b"></script>
+<script src="js/app.js?v=20261022b"></script>
+</body>
+</html>
