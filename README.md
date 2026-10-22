@@ -2,7 +2,8 @@
 
 黑白电影感的分镜与动画分镜工作台。96 个电影 / 短剧镜头预设 + 58 个可插入矢量素材，在一块可编辑画布上自由组合人物、道具和场景，在时间轴上设定每个镜头的时长，最后直接导出按镜头时长播放的 MP4 / WebM。
 
-在线地址：**https://dowenow.com/fj/**
+在线地址：**https://dowenow.com/fj/**  
+GitHub 源码：**https://github.com/TofuBen/aperture-storyboard**
 
 > 纯本地运行：无框架、无构建、无外部 CDN，所有画稿、时间轴、视频渲染都在浏览器里完成。
 
